@@ -1,0 +1,26 @@
+name: 📅 查主力监控系统
+
+on:
+  schedule:
+    # UTC时间 10:00 对应 北京时间 18:00
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+jobs:
+  run_strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 获取代码
+        uses: actions/checkout@v4
+
+      - name: 🐍 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 安装依赖
+        run: |
+          pip install -r requirements.txt
+
+      - name: 🚀 执行策略
+        run: python main.py
